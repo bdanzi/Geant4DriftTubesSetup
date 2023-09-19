@@ -21,7 +21,25 @@
 </details>
 
 # Geant4DriftTubesSetup
-This repository has been created starting from ExP01 provided by Geant4 and adapted to the geometry used in IDEA Drift Chamber Test Beams.
+This repository has been created starting from [ExP01](https://ecce-eic.github.io/doxygen/dir_bed8dccf306a29006b96259e27ac780d.html) provided by Geant4 and adapted to the geometry used in INFN IDEA Drift Chamber Test Beams (see Figures below).
+
+The following `Initialization classes` (usage of `G4RunManager::SetUserInitialization()` to define them) are present:
+– Invoked at the initialization:
+  • G4VUserDetectorConstruction 
+	• G4VUserPhysicsList
+  • G4VUserActionInitialization 
+
+The following `Action classes` - which are invoked during an event loop and instantiated in `G4VUserActionInitialization` - have been used:
+  • G4VUserPrimaryGeneratorAction 
+	• G4UserRunAction
+  • G4UserEventAction
+  • G4UserSteppingAction 
+
+
+<img width="502" alt="image" src="https://github.com/bdanzi/Geant4DriftTubesSetup/assets/75045014/b36bbec1-dbdf-4fd5-aced-3e8958af0ac3">
+
+
+
 <img width="964" alt="Example of Geant4 Simulation, muon of 165 GeV and 10k events" src="https://github.com/bdanzi/Geant4DriftTubesSetup/blob/main/Screenshot%202023-09-19%20alle%2018.00.14.png">
 <img width="964" alt="Example of Geant4 Simulation, muon of 165 GeV and 10k events" src="https://github.com/bdanzi/Geant4DriftTubesSetup/blob/main/Screenshot%202023-09-19%20alle%2018.00.40.png">
 
