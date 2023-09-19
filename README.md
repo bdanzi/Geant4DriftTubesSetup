@@ -39,7 +39,8 @@ The following `Action Classes` (instantiated in `G4VUserActionInitialization` vi
 - `G4UserSteppingAction` (+ `G4UserSteppingVerbose`): the method `void ExP01SteppingVerbose::StepInfo()` gives information at each step
 
 Additional classes are:
-- `RootIO`: It stores information about the sensitive detector in a ROOT file hists.root
+- `G4VisExecutive`: this class is used for visualization
+- `RootIO`: It stores information about the sensitive detector in a ROOT file `hists.root`
 - `ExP01MagneticField`: It can set a uniform value for the magnetic field, but in this case, an Electric Field would be needed to simulate EM showers in each parrallelepiped tube
 
 <img width="964" alt="Example of Geant4 Simulation, muon of 165 GeV and 10k events" src="https://github.com/bdanzi/Geant4DriftTubesSetup/blob/main/Screenshot%202023-09-19%20alle%2018.00.14.png">
