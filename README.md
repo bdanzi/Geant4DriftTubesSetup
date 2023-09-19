@@ -23,13 +23,13 @@
 # Geant4DriftTubesSetup
 This repository has been created starting from [ExP01](https://ecce-eic.github.io/doxygen/dir_bed8dccf306a29006b96259e27ac780d.html) provided by Geant4 and adapted to the geometry used in INFN IDEA Drift Chamber Test Beams (see Figures below).
 
-The following `Initialization Classes` (usage of `G4RunManager::SetUserInitialization()` to define them) are present:
+The following `Initialization Classes` (usage of `G4RunManager::SetUserInitialization()` to set user mandatory classes to `RunManager`) are present:
 
 - G4VUserDetectorConstruction
 - G4VUserPhysicsList
 - G4VUserActionInitialization 
 
-The following `Action Classes` (usage of `G4RunManager::SetUserAction()` to define them) have been used: 
+The following `Action Classes` (usage of `G4RunManager::SetUserAction()` to define them, instantiated in G4VUserActionInitialization and invoked during the event loop) have been used: 
 
 - G4VUserPrimaryGeneratorAction
 - G4UserRunAction
