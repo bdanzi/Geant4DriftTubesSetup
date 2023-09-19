@@ -27,8 +27,8 @@ This repository has been created starting from [ExP01](https://ecce-eic.github.i
 
 The following `Initialization Classes` (usage of `G4RunManager::SetUserInitialization()` to set user mandatory classes to `RunManager`) are present:
 
-- G4VUserDetectorConstruction: in this class I extensively used `G4Box`,`G4Tubes` classes to define respectively World Volume, Tracker Volume (Chamber + Inner Tubes) and Target Volumes (the two scintillators before and after the Tracker apparatus). Since the Chamber apparatus is composed of parallelepiped material at different positions, I have defined the class `ChamberParameterisation`. The `ExP01TrackerSD` class makes the Chamber a sensitive detector from which I can retrieve information about hits.
-- G4VUserPhysicsList: in this case I used the `FTFP_BERT` class,  recommended by Geant4 developers for HEP applications, it includes the standard EM physics  (“FTF” stands for FRITIOF string model (> 4 GeV) - “BERT” Bertini Cascade model (< 5 GeV), and “P” G4Precompound model used for de-excitation)
+- G4VUserDetectorConstruction: in this class I extensively used `G4Box`,`G4Tubes` classes to define the **World Volume** (vacuum), **Tracker Volume** (Chamber - Gas(He:IsoB, 90%) + Inner Tubes (Mo:Al,50%) and **Target Volumes** (two Plastic Scintillators before and after the Tracker apparatus as triggers). Since the Chamber apparatus is composed of parallelepiped materials at different positions, I have defined the class `ChamberParameterisation`. The `ExP01TrackerSD` class makes the Chamber a sensitive detector from which I can retrieve information about its hits and kinematic processes.
+- G4VUserPhysicsList: in this case, I used the`FTFP_BERT` class,  recommended by Geant4 developers for HEP applications, it includes the standard EM physics  (“FTF” stands for FRITIOF string model (> 4 GeV) - “BERT” Bertini Cascade model (< 5 GeV), and “P” G4Precompound model used for de-excitation)
 - G4VUserActionInitialization 
 
 The following `Action Classes` (instantiated in `G4VUserActionInitialization` via G4RunManager::SetUserAction() and invoked during the event loop) have been used: 
