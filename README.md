@@ -23,6 +23,8 @@
 # Geant4DriftTubesSetup
 This repository has been created starting from [ExP01](https://ecce-eic.github.io/doxygen/dir_bed8dccf306a29006b96259e27ac780d.html) provided by Geant4 and adapted to the geometry used in [INFN IDEA Drift Chamber Test Beams](https://arxiv.org/abs/2211.04220) (see Figures below).
 
+<img width="964" alt="Channel Schematics of July 2022 Beam Test" src="https://github.com/bdanzi/TestBeam2022/blob/main/Schermata%202022-09-10%20alle%2020.18.11.png">
+
 The following `Initialization Classes` (usage of `G4RunManager::SetUserInitialization()` to set user mandatory classes to `RunManager`) are present:
 
 - G4VUserDetectorConstruction: in this class I extensively used `G4Box`,`G4Tubes` classes to define respectively World Volume, Tracker Volume (Chamber + Inner Tubes) and Target Volumes (the two scintillators before and after the Tracker apparatus). Since the Chamber apparatus is composed of parallelepiped material at different positions, I have defined the class `ChamberParameterisation`. The `ExP01TrackerSD` class makes the Chamber a sensitive detector from which I can retrieve information about hits.
