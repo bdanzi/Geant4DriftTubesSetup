@@ -53,7 +53,7 @@ Additional classes are:
 
 ## Setup
 
-Download of the Source code of the [geant4-v11.1.2](https://geant4-dev.web.cern.ch/download/all) release on Mac OS X (M1 Ventura 13.3).
+Download of the source code [geant4-v11.1.2](https://geant4-dev.web.cern.ch/download/all) release on Mac OS X (M1 Ventura 13.3) and settings as follows for `cmake`:
 
 ```bash
 $ mkdir geant4-v11.1.2-build
