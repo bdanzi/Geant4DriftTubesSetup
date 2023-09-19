@@ -21,19 +21,19 @@
 </details>
 
 # Geant4DriftTubesSetup
-This repository has been created starting from [ExP01](https://ecce-eic.github.io/doxygen/dir_bed8dccf306a29006b96259e27ac780d.html) provided by Geant4 and adapted to the geometry used in INFN IDEA Drift Chamber Test Beams (see Figures below).
+This repository has been created starting from [ExP01](https://ecce-eic.github.io/doxygen/dir_bed8dccf306a29006b96259e27ac780d.html) provided by Geant4 and adapted to the geometry used in [INFN IDEA Drift Chamber Test Beams](https://arxiv.org/abs/2211.04220) (see Figures below).
 
 The following `Initialization Classes` (usage of `G4RunManager::SetUserInitialization()` to set user mandatory classes to `RunManager`) are present:
 
-- G4VUserDetectorConstruction
-- G4VUserPhysicsList
+- G4VUserDetectorConstruction: in this class I extensively used `G4Box`,`G4Tubes` classes to define respectively World Volume, Tracker Volume (Chamber + Inner Tubes) and Target Volumes (the two scintillators before and after the Tracker apparatus). Since the Chamber apparatus can be composed of parallelepiped material at different positions, I have defined the class `ChamberParameterisation`. The `ExP01TrackerSD` class makes the Chamber a sensitive detector from which I can retrieve information about hits.
+- G4VUserPhysicsList: in this case I used the `FTFP_BERT` class,  recommended by Geant4 developers for HEP applications, it includes the standard EM physics  (“FTF” stands for FRITIOF string model (> 4 GeV) - “BERT” Bertini Cascade model (< 5 GeV), and “P” G4Precompound model used for de-excitation)
 - G4VUserActionInitialization 
 
-The following `Action Classes` (usage of `G4RunManager::SetUserAction()` to define them, instantiated in G4VUserActionInitialization and invoked during the event loop) have been used: 
+The following `Action Classes` (instantiated in `G4VUserActionInitialization` via G4RunManager::SetUserAction() and invoked during the event loop) have been used: 
 
-- G4VUserPrimaryGeneratorAction
-- G4UserRunAction
-- G4UserEventAction
+- G4VUserPrimaryGeneratorAction: I searched for muons via the class `G4ParticleTable`, set a uniform angular distribution for the momentum direction and position, fixing the particle energy to 165 GeV
+- G4UserRunAction: I used the `ExP01EventAction::BeginOfRunAction` method to create a root file in which I stored 1D and 2D histograms with information about step length, time, Energy deposited in each step by muon particles, and kinetic energy associated to each track. 
+- G4UserEventAction: I used the `ExP01EventAction::EndOfEventAction` to print the number of trajectories stored in each event
 - G4UserSteppingAction 
 
 <img width="964" alt="Example of Geant4 Simulation, muon of 165 GeV and 10k events" src="https://github.com/bdanzi/Geant4DriftTubesSetup/blob/main/Screenshot%202023-09-19%20alle%2018.00.14.png">
