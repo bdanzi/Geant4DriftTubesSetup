@@ -1,0 +1,91 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+/// \file persistency/P01/src/ExP01RunAction.cc
+/// \brief Implementation of the ExP01RunAction class
+//
+//
+// 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#include "ExP01RunAction.hh"
+#include "G4AnalysisManager.hh"
+#include "G4Run.hh"
+#include "TH1F.h"
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+ExP01RunAction::ExP01RunAction()
+: G4UserRunAction()
+{
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+ExP01RunAction::~ExP01RunAction()
+{
+delete G4AnalysisManager::Instance();
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void ExP01RunAction::BeginOfRunAction(const G4Run* aRun)
+{
+  G4cout << "### Run " << aRun->GetRunID() << " start." << G4endl;
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  analysisManager->SetVerboseLevel(1); // Set verbosity level if needed
+  analysisManager->SetFirstHistoId(1);
+  // Create a ROOT output file and set it for the analysis manager
+  analysisManager->OpenFile("output.root");
+  // Create a histogram for total energy deposit
+  analysisManager->CreateH1("TotalEnergyDeposit", "Total Energy Deposit Histogram in a Step", 50, 0, 0.001);
+  analysisManager->SetH1XAxisTitle(analysisManager->GetH1Id("TotalEnergyDeposit"), "Total Energy Deposit Histogram in a Step [GeV]");
+  analysisManager->SetH1YAxisTitle(analysisManager->GetH1Id("TotalEnergyDeposit"), "a.u.");
+
+  analysisManager->CreateH2("StepLengthvsStepTime", "Step Length vs Step Time", 100, 0, 30,100,0,10);
+  analysisManager->SetH2XAxisTitle(analysisManager->GetH2Id("StepLengthvsStepTime"), "Step Time [ns]");
+  analysisManager->SetH2YAxisTitle(analysisManager->GetH2Id("StepLengthvsStepTime"), "Step Length [cm]");
+
+  analysisManager->CreateH1("TrackKineticEnergy", "Track Kinetic Energy", 100, 0, 50);
+  analysisManager->SetH1XAxisTitle(analysisManager->GetH1Id("TrackKineticEnergy"), "Track Kinetic Energy [GeV]");
+  analysisManager->SetH1YAxisTitle(analysisManager->GetH1Id("TrackKineticEnergy"), "a.u.");
+
+  
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void ExP01RunAction::EndOfRunAction(const G4Run*)
+{ 
+  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  analysisManager->Write();
+  analysisManager->CloseFile();
+
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
