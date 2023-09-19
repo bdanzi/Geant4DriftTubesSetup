@@ -21,7 +21,7 @@
 </details>
 
 # Geant4DriftTubesSetup
-This repository has been created starting from [ExP01](https://ecce-eic.github.io/doxygen/dir_bed8dccf306a29006b96259e27ac780d.html) provided by [Geant4](https://geant4.web.cern.ch) and adapted to the geometry used in [INFN IDEA Drift Chamber Test Beams](https://arxiv.org/abs/2211.04220) (see a test beam configuration example in the Figure below).
+This repository has been created starting from the [ExP01](https://ecce-eic.github.io/doxygen/dir_bed8dccf306a29006b96259e27ac780d.html) provided by [Geant4](https://geant4.web.cern.ch) and adapted to the geometry inspired by test beam setups for the [IDEA Drift Chamber] (https://arxiv.org/abs/2211.04220) (see a test beam configuration example in the Figure below).
 
 <img width="964" alt="Channel Schematics of July 2022 Beam Test" src="https://github.com/bdanzi/TestBeam2022/blob/main/Schermata%202022-09-10%20alle%2020.18.11.png">
 
