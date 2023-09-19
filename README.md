@@ -53,64 +53,19 @@ Additional ones are:
 
 ## Setup
 
-On Bari ReCAS and in the `testbeam_analysis\` directory of this repository:
+Download of the Source code of the [geant4-v11.1.2](https://geant4-dev.web.cern.ch/download/all) release on Mac OS X (M1 Ventura 13.3).
 
 ```bash
-$ source /cvmfs/sft.cern.ch/lcg/views/LCG_102/x86_64-centos7-gcc11-opt/setup.sh
-$ source setDCDataReaderEnv.sh
-$ bash compile.sh
-$ bash submit_first.sh
-```
-On lxplus and in the `testbeam_analysis\` directory of this repository:
-
-```bash
-$ source setDCDataReaderEnv.sh
-$ bash compile.sh
-$ bash submit_first.sh
-```
-where the last line of code runs in parallel the `./read_data $path_to_your_run_files $i 0 -1 $sampling $N_1 $N_2 $N_3 $N_4 $binTimeInterval $dim $cut_scale` command in interactive mode or on HTcondor:
-
-- i is the run number
-
-- 0 -10 are the number of events to be processed (-1 to process the whole data set)
-
-- $sampling is the sampling rate to be used in analysis
-
-- $N_1 $N_2 $N_3 $N_4 are the cuts respectively on the signal amplitude, first and second derivatives before starting the search for electron peaks (see FindPeak-algo.C for further details)
-
-- $binTimeInterval is the time interval (ns) starting from the beginning of the waveform in which the baseline and the rms is computed
-
-- $dim are the waveform bins available from the data acquisition window
-
-- $cut_scale is the threshold for electron peaks to be in the same primary ionization cluster
-
-## Instructions
-
-These macros find voltage amplitude peaks without any filter algorithm is applied to the waveform.
-For each sample and each channel it is able to count how many events with an actual signal we have.
-Config files and executables are created to run on more than one ROOT file (not available here, too much large in size).
-
-```bash
-$ submit_second.sh
+$ mkdir geant4-v11.1.2-build
+$ cd geant4-v11.1.2-build
+$ cmake -DCMAKE_INSTALL_PREFIX=/Applications/geant4-v11.1.2-install /Users/brunelladanzi/Downloads/geant4-v11.1.2
+$ cmake -DGEANT4_INSTALL_DATA=ON .
+$ cmake -DGEANT4_USE_OPENGL_X11=ON .
+$ cmake -DGEANT4_USE_QT=ON .
+$ make -j8
+$ make install
 ```
 
-It will produce in `executables\`:
-- executable files `submit_executable_conversion*.sh` per each `run_*.root` file that has to be converted in a root file containing histos 
-with the most important physical variables
-- config files that can be run as job in recas for accelerating the process of the histos ROOT file generation
-
-Moreover, it will produce:
-- by using the plots_oldTestBeam.txt, per each .root file in the first column, per each channel in the second column,
-per each event in the third column some physical quantities which are related to 
-1) Number of Electron peaks, First Peak Time of Arrival and Last Peak Time of arrival distributions
-2) Maxima
-3) Charge Integral of the wavefunction (in pC)
-4) Wave functions w & w/o peak arrows
-5) Number of events per each channel which passes a voltage amplitude requirement for the waveform maximum of 5 mV
-6) Number of Cluster distributions
-7) Time Difference between two consecutive clusters
-8) Time Difference between two consecutive Electrons
-9) Cluster population (Number of Electron Peaks per Primary Ionization Cluster)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
