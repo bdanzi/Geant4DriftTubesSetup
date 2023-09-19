@@ -29,7 +29,7 @@ The following `Initialization Classes` (usage of `G4RunManager::SetUserInitializ
 - G4VUserPhysicsList
 - G4VUserActionInitialization 
 
-The following `Action classes` - which are invoked during an event loop and instantiated in `G4VUserActionInitialization` - have been used: 
+The following `Action Classes` - which are invoked during an event loop and instantiated in `G4VUserActionInitialization` - have been used: 
 
 - G4VUserPrimaryGeneratorAction
 - G4UserRunAction
