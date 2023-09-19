@@ -27,20 +27,20 @@ This repository has been created starting from [ExP01](https://ecce-eic.github.i
 
 The following `Initialization Classes` (usage of `G4RunManager::SetUserInitialization()` to set user mandatory classes to `RunManager`) are present:
 
-- G4VUserDetectorConstruction: in this class I extensively used `G4Box`,`G4Tubes` classes to define the **World Volume** (vacuum), **Tracker Volume** (Chamber - Gas(He:90 IsoB:10, 90%) + Inner Tubes (Mo:50 Al:50) and **Target Volumes** (two Plastic Scintillators before and after the Tracker apparatus as triggers). User Limits for the tracker region have been set as well. Since the Chamber apparatus is composed of parallelepiped materials at different positions, I have defined the class `ChamberParameterisation`. The `ExP01TrackerSD` class makes the Chamber a sensitive detector from which I can retrieve information about its hits and kinematic processes.
-- G4VUserPhysicsList: in this case, I used the`FTFP_BERT` class,  recommended by Geant4 developers for HEP applications, it includes the standard EM physics  (“FTF” stands for FRITIOF string model (> 4 GeV) - “BERT” Bertini Cascade model (< 5 GeV), and “P” G4Precompound model used for de-excitation)
-- G4VUserActionInitialization 
+- `G4VUserDetectorConstruction`: in this class I extensively used `G4Box`,`G4Tubes` classes to define the **World Volume** (vacuum), **Tracker Volume** (Chamber - Gas(He:90 IsoB:10, 90%) + Inner Tubes (Mo:50 Al:50) and **Target Volumes** (two Plastic Scintillators before and after the Tracker apparatus as triggers). User Limits for the tracker region have been set as well. Since the Chamber apparatus is composed of parallelepiped materials at different positions, I have defined the class `ChamberParameterisation`. The `ExP01TrackerSD` class makes the Chamber a sensitive detector from which I can retrieve information about its hits and kinematic processes.
+- `G4VUserPhysicsList`: in this case, I used the`FTFP_BERT` class,  recommended by Geant4 developers for HEP applications, it includes the standard EM physics  (“FTF” stands for FRITIOF string model (> 4 GeV) - “BERT” Bertini Cascade model (< 5 GeV), and “P” G4Precompound model used for de-excitation)
+- `G4VUserActionInitialization`
 
 The following `Action Classes` (instantiated in `G4VUserActionInitialization` via G4RunManager::SetUserAction() and invoked during the event loop) have been used: 
 
-- G4VUserPrimaryGeneratorAction: I searched for muons via the class `G4ParticleTable`, set a uniform angular distribution for the momentum direction and position, fixing the particle energy to 165 GeV
-- G4UserRunAction: I used the `ExP01EventAction::BeginOfRunAction` method to create a root file in which I stored 1D and 2D histograms with information about step length, time, Energy deposited in each step by muon particles, and kinetic energy associated with each track. 
-- G4UserEventAction: I used the `ExP01EventAction::EndOfEventAction` to print the number of trajectories stored in each event
-- G4UserSteppingAction (+ G4UserSteppingVerbose): the method `void ExP01SteppingVerbose::StepInfo()` gives information at each step
+- `G4VUserPrimaryGeneratorAction`: I searched for muons via the class `G4ParticleTable`, set a uniform angular distribution for the momentum direction and position, fixing the particle energy to 165 GeV
+- `G4UserRunAction`: I used the `ExP01EventAction::BeginOfRunAction` method to create a root file in which I stored 1D and 2D histograms with information about step length, time, Energy deposited in each step by muon particles, and kinetic energy associated with each track. 
+- `G4UserEventAction`: I used the `ExP01EventAction::EndOfEventAction` to print the number of trajectories stored in each event
+- `G4UserSteppingAction` (+ `G4UserSteppingVerbose`): the method `void ExP01SteppingVerbose::StepInfo()` gives information at each step
 
 Additional classes are:
-- RootIO: It stores information about the sensitive detector in a ROOT file hists.root
-- MagneticField: It can set a uniform value for the magnetic field, but in this case, an Electric Field would be needed to simulate EM showers in each parrallelepiped tube
+- `RootIO`: It stores information about the sensitive detector in a ROOT file hists.root
+- `ExP01MagneticField`: It can set a uniform value for the magnetic field, but in this case, an Electric Field would be needed to simulate EM showers in each parrallelepiped tube
 
 <img width="964" alt="Example of Geant4 Simulation, muon of 165 GeV and 10k events" src="https://github.com/bdanzi/Geant4DriftTubesSetup/blob/main/Screenshot%202023-09-19%20alle%2018.00.14.png">
 
