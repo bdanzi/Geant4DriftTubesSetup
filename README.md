@@ -31,7 +31,7 @@ The following `Initialization Classes` (usage of `G4RunManager::SetUserInitializ
 - `G4VUserPhysicsList`: in this case, I used the`FTFP_BERT` class,  recommended by Geant4 developers for HEP applications, it includes the standard EM physics  (“FTF” stands for FRITIOF string model (> 4 GeV) - “BERT” Bertini Cascade model (< 5 GeV), and “P” G4Precompound model used for de-excitation)
 - `G4VUserActionInitialization`
 
-The following `Action Classes` (instantiated in `G4VUserActionInitialization` via G4RunManager::SetUserAction() and invoked during the event loop) have been used: 
+The following `Action Classes` (instantiated in `G4VUserActionInitialization` via `G4RunManager::SetUserAction()` and invoked during the event loop) have been used: 
 
 - `G4VUserPrimaryGeneratorAction`: I searched for muons via the class `G4ParticleTable`, set a uniform angular distribution for the momentum direction and position, fixing the particle energy to 165 GeV
 - `G4UserRunAction`: I used the `ExP01EventAction::BeginOfRunAction` method to create a root file in which I stored 1D and 2D histograms with information about step length, time, Energy deposited in each step by muon particles, and kinetic energy associated with each track. 
